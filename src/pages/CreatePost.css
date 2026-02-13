@@ -1,0 +1,139 @@
+.create-post-page {
+    min-height: 100vh;
+    background-color: #f8fafc;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.create-post-container{
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1.5rem 2rem;
+}
+
+.form-header{
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.form-header h1{
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 1rem;
+    background: linear-gradient(135dbg, #6366f3 , #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.form-header p{
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+.post-form-card{
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+}
+
+.post-form-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+}
+
+.form-group {
+    margin-bottom: 1.75rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.05rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.75rem;
+}
+
+.input-wrapper{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon{
+    position: absolute;
+    left: 1rem;
+    color: #94a3ba;
+    font-size: 1.2rem;
+}
+
+.font-control{
+    width: 100%;
+    padding: 0.875rem  1rem 0.875rem 2.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #1e293b;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: #f4f4f4;
+}
+
+.font-control:focus{
+    border-color: #6366f1;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    background-color: #fff;
+}
+
+.textarea.form-control{
+    resize: vertical;
+    min-height: 150px;
+    padding-left: 1rem;
+}
+
+.image-source-tabs{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 0.4rem;
+}
+
+.tab-btn{
+    flex: 1;
+    padding: 0.6rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: transparent;
+    color: #64748b;
+}
+
+.teb-btn-active{
+    background: #eef2ff;
+    color: #6366f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-upload-area{
+    border: 2px dashed #e2e8f0;
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #f8fafc;
+}
+
+.image-upload-area:hover{
+    border-color: #6366f1;
+    background: #f5f3ff;
+}
