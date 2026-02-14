@@ -19,8 +19,7 @@ body {
   padding: 20px;
 }
 
-
-/* Form Container        */
+/* Form Container */
 
 .form-container {
   background: #ffffff;
@@ -36,7 +35,7 @@ body {
   animation: popupFade 1s ease-out;
 }
 
-/* Headings              */
+/* Headings */
 
 .form-title {
   text-align: center;
@@ -60,7 +59,7 @@ body {
   margin-bottom: 18px;
 }
 
-/* Labels                */
+/* Labels  */
 
 .form-group label {
   display: block;
@@ -70,7 +69,7 @@ body {
   font-weight: 500;
 }
 
-/* Inputs                */
+/* Inputs  */
 
 .form-group input {
   width: 100%;
@@ -111,7 +110,7 @@ body {
   box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.15);
 }
 
-/* Button                */
+/* Button  */
 
 .btn-primary {
   width: 100%;
@@ -150,7 +149,7 @@ body {
   text-decoration: underline;
 }
 
-/* Responsive Tweaks     */
+/* Responsive Tweaks  */
 
 /* 📱 Mobile */
 @media (max-width: 480px) {

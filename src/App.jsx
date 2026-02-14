@@ -12,7 +12,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreatePost from "./pages/CreatePost";
 
-
 const DefaultRoute = () => {
   const loginData = JSON.parse(localStorage.getItem("loginData"));
   if (loginData) {
@@ -66,14 +65,14 @@ function App() {
           <CreatePost />
         </AuthGuard>
       ),
-    }
+    },
   ]);
 
   return (
     <>
       <RouterProvider router={router} />
 
-      {/* ✅ Toast container added ONCE */}
+      {/* Toast container*/}
       <ToastContainer
         position="top-right"
         autoClose={1000}
