@@ -11,6 +11,9 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreatePost from "./pages/CreatePost";
+import PostDetail from "./pages/PostDetail";
+import Analytics from "./pages/Analytics";
+
 
 const DefaultRoute = () => {
   const loginData = JSON.parse(localStorage.getItem("loginData"));
@@ -66,6 +69,23 @@ function App() {
         </AuthGuard>
       ),
     },
+    {
+      path: "/PostDetail/:id",
+      element: (
+        <AuthGuard required={true}>
+          <PostDetail />
+        </AuthGuard>
+      ),
+    },
+    {
+      path:"/Analytics",
+      element: (
+        <AuthGuard required={true}>
+          <Analytics />
+        </AuthGuard>
+      ),
+    }
+    
   ]);
 
   return (

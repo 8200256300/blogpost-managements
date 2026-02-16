@@ -165,7 +165,7 @@ import { useEffect, useState } from "react";
                       <p className="post-card-description">
                         {post.description || post.content || post.excerpt}
                       </p>
-                      <button className="read-more-btn">Read More</button>
+                      <button className="read-more-btn"  onClick={() => navigate(`/PostDetail/${post.id}`)}>Read More</button>
                     </div>
                   </div>
                 ))
