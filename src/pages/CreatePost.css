@@ -260,7 +260,6 @@ input[type="url"].form-control {
   transform: translateY(1px);
 }
 
-
 @media (max-width: 480px) {
   .form-actions-row {
     flex-direction: column;

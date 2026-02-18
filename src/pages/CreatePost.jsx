@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  FaArrowLeft,
   FaCloudUploadAlt,
   FaHeading,
   FaLink,
@@ -26,6 +27,10 @@ const CreatePost = () => {
     image: "",
   });
 
+  const handleBackToDashboard = () => {
+    navigate("/dashboard");
+  };
+
   const [previewImage, setPreviewImage] = useState("");
 
   /* AUTO AUTHOR */
@@ -42,7 +47,7 @@ const CreatePost = () => {
   /*FETCH POST FOR EDIT */
   useEffect(() => {
     if (id) {
-      fetch( `http://localhost:3000/posts/${id}`)
+      fetch(`http://localhost:3000/posts/${id}`)
         .then((res) => {
           if (!res.ok) throw new Error("Post not found");
           return res.json();
@@ -56,7 +61,7 @@ const CreatePost = () => {
           });
 
           setPreviewImage(data.image || "");
-          
+
           if (data.image) {
             setShowUploadArea(false);
           }
@@ -94,7 +99,6 @@ const CreatePost = () => {
       toast.error("Description required");
       return false;
     }
-
     if (!previewImage) {
       toast.error("Post image required");
       return false;
@@ -103,7 +107,7 @@ const CreatePost = () => {
     return true;
   };
 
-  /*SUBMIT (CREATE + UPDATE) */
+  /*SUBMIT */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -121,23 +125,17 @@ const CreatePost = () => {
       let response;
 
       if (id) {
-        response = await fetch(
-          `http://localhost:3000/posts/${id}`,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(postData),
-          }
-        );
+        response = await fetch(`http://localhost:3000/posts/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(postData),
+        });
       } else {
-        response = await fetch(
-          "http://localhost:3000/posts",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(postData),
-          }
-        );
+        response = await fetch("http://localhost:3000/posts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(postData),
+        });
       }
 
       if (!response.ok) throw new Error("Save failed");
@@ -222,7 +220,6 @@ const CreatePost = () => {
     setShowUploadArea(true);
   };
 
-  /*HANDLE TAB CHANGE */
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     if (tab === "url") {
@@ -239,6 +236,13 @@ const CreatePost = () => {
       <Navbar />
 
       <div className="create-post-container">
+        <button
+          type="button"
+          className="back-btn"
+          onClick={handleBackToDashboard}
+        >
+          <FaArrowLeft /> Back to Feed
+        </button>
         <header className="form-header">
           <h1>{id ? "Edit Post" : "Create a New Post"}</h1>
           <p>Share your thoughts with the world!</p>
@@ -246,7 +250,6 @@ const CreatePost = () => {
 
         <div className="post-form-card">
           <form onSubmit={handleSubmit}>
-            
             {/* TITLE */}
             <div className="form-group">
               <label>Post Title</label>
@@ -266,7 +269,6 @@ const CreatePost = () => {
 
             {/* AUTHOR */}
             <div className="form-group">
-              
               <label>Author Name</label>
               <div className="input-wrapper">
                 <FaUser className="input-icon" />
@@ -305,7 +307,7 @@ const CreatePost = () => {
                   className={`tab-btn ${activeTab === "url" ? "active" : ""}`}
                   onClick={() => handleTabChange("url")}
                 >
-                  <FaLink style={{ marginRight: '8px' }} />
+                  <FaLink style={{ marginRight: "8px" }} />
                   Paste Image URL
                 </button>
 
@@ -314,7 +316,7 @@ const CreatePost = () => {
                   className={`tab-btn ${activeTab === "upload" ? "active" : ""}`}
                   onClick={() => handleTabChange("upload")}
                 >
-                  <FaCloudUploadAlt style={{ marginRight: '8px' }} />
+                  <FaCloudUploadAlt style={{ marginRight: "8px" }} />
                   Upload File
                 </button>
               </div>
@@ -369,7 +371,8 @@ const CreatePost = () => {
                       alt="Preview"
                       className="image-preview"
                       onError={(e) => {
-                        e.target.src = 'https://via.placeholder.com/400x200?text=Invalid+Image';
+                        e.target.src =
+                          "https://via.placeholder.com/400x200?text=Invalid+Image";
                       }}
                     />
                     <button
@@ -392,15 +395,10 @@ const CreatePost = () => {
                 {id ? " Update Post" : " Publish Post"}
               </button>
 
-              <button
-                type="button"
-                className="cancel-btn"
-                onClick={clearForm}
-              >
+              <button type="button" className="cancel-btn" onClick={clearForm}>
                 Clear Form
               </button>
             </div>
-
           </form>
         </div>
       </div>

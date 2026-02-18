@@ -14,7 +14,6 @@ import CreatePost from "./pages/CreatePost";
 import PostDetail from "./pages/PostDetail";
 import Analytics from "./pages/Analytics";
 
-
 const DefaultRoute = () => {
   const loginData = JSON.parse(localStorage.getItem("loginData"));
   if (loginData) {
