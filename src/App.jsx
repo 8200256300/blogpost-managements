@@ -11,8 +11,12 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreatePost from "./pages/CreatePost";
-import PostDetail from "./pages/PostDetail";
+import PostDetails from "./pages/PostDetail";
 import Analytics from "./pages/Analytics";
+import Favourites from "./pages/Favourites";
+
+
+
 
 const DefaultRoute = () => {
   const loginData = JSON.parse(localStorage.getItem("loginData"));
@@ -69,29 +73,36 @@ function App() {
       ),
     },
     {
-      path: "/PostDetail/:id",
-      element: (
+      path: "/post-details/:id",
+      element:(
         <AuthGuard required={true}>
-          <PostDetail />
+          <PostDetails/>
         </AuthGuard>
-      ),
+      )
     },
     {
-      path:"/Analytics",
-      element: (
+      path: "/analytics",
+      element:(
         <AuthGuard required={true}>
-          <Analytics />
+          <Analytics/>
         </AuthGuard>
-      ),
-    }
-    
+      )
+    },
+    {
+      path: "/favourites",
+      element:(
+        <AuthGuard required={true}>
+          <Favourites/>
+        </AuthGuard>
+      )
+    },
   ]);
 
   return (
     <>
       <RouterProvider router={router} />
 
-      {/* Toast container*/}
+      {/*  Toast container added ONCE */}
       <ToastContainer
         position="top-right"
         autoClose={1000}

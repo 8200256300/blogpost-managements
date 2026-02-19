@@ -11,23 +11,26 @@ const PostDetails = () => {
 
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const handleBackToDashboard = () => {
     navigate("/dashboard");
   };
 
-  //Calculate reading time
-  const calculateReadTime = (text = "") => {
-    const words = text.split(" ").length;
-    const minutes = Math.ceil(words / 200);
-    return `${minutes} min read`;
+  // Calculate reading time
+  const calculateReadTime = (text) => {
+    if (!text) return 1;
+    const wordsPerMinute = 200;
+    const wordCount = text.split(" ").length;
+    return Math.ceil(wordCount / wordsPerMinute);
   };
 
-  //Fetch post
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/posts/${id}`);
+        const response = await fetch(
+          `http://localhost:3000/posts/${id}`
+        );
 
         if (!response.ok) {
           throw new Error("Post not found");
@@ -36,34 +39,23 @@ const PostDetails = () => {
         const data = await response.json();
         setPost(data);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching post:", error);
+        setError("Post not found");
         toast.error("Failed to load post");
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) fetchPost();
+    fetchPost();
   }, [id]);
 
-  // Loading State
   if (loading) {
-    return (
-      <div className="loading-state">
-        <Navbar />
-        <p>Loading post...</p>
-      </div>
-    );
+    return <div className="loading-state">Loading post...</div>;
   }
 
- 
-  if (!post) {
-    return (
-      <div className="no-posts">
-        <Navbar />
-        <p>Post not found</p>
-      </div>
-    );
+  if (error) {
+    return <div className="no-posts">{error}</div>;
   }
 
   return (
@@ -77,14 +69,18 @@ const PostDetails = () => {
 
         <article className="full-post">
           <header className="post-header">
-            <div className="post-category">{post.category || "Journal"}</div>
+            <div className="post-category">
+              {post.category || "Journal"}
+            </div>
 
-            <h1 className="post-full-title">{post.title}</h1>
+            <h1 className="post-full-title">
+              {post.title}
+            </h1>
 
             <div className="post-author-meta">
               <div className="author-info">
                 <div className="author-avatar">
-                  {post.author?.charAt(0)?.toUpperCase() || "A"}
+                  {post.author?.charAt(0).toUpperCase() || "A"}
                 </div>
 
                 <div>
@@ -96,14 +92,14 @@ const PostDetails = () => {
                     <span>
                       <FaCalendarAlt />{" "}
                       {new Date(
-                        post.createdAt || Date.now(),
+                        post.createdAt || Date.now()
                       ).toLocaleDateString()}
                     </span>
 
                     <span className="dot"></span>
 
                     <span>
-                      <FaClock /> {calculateReadTime(post.description)}
+                      <FaClock /> {calculateReadTime(post.content)} Min Read
                     </span>
                   </div>
                 </div>
@@ -111,20 +107,22 @@ const PostDetails = () => {
             </div>
           </header>
 
-          {/*Featured Image */}
           <div className="post-featured-image">
             <img
               src={
                 post.image ||
-                "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200"
+                "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800"
               }
               alt={post.title}
             />
           </div>
 
-          {/*  Dynamic Body */}
           <div className="post-body">
-            <p>{post.description}</p>
+            {post.description ? (
+              <p>{post.description}</p>
+            ) : (
+              <p>No content available.</p>
+            )}
           </div>
 
           <footer className="post-footer">
@@ -136,8 +134,7 @@ const PostDetails = () => {
                   className="share-button"
                   onClick={() =>
                     window.open(
-                      `https://twitter.com/intent/tweet?text=${post.title}`,
-                      "_blank",
+                      `https://twitter.com/intent/tweet?text=${post.title}&url=${window.location.href}`
                     )
                   }
                 >
@@ -148,8 +145,7 @@ const PostDetails = () => {
                   className="share-button"
                   onClick={() =>
                     window.open(
-                      `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`,
-                      "_blank",
+                      `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}`
                     )
                   }
                 >
@@ -163,7 +159,7 @@ const PostDetails = () => {
                     toast.success("Link copied!");
                   }}
                 >
-                  Link
+                  Copy Link
                 </button>
               </div>
             </div>

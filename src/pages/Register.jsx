@@ -60,145 +60,144 @@ const Register = () => {
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  if (!validate()) return;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!validate()) return;
 
-  // 🔹 Get existing users
-  const existingUsers =
-    JSON.parse(localStorage.getItem("authData")) || [];
+    // 🔹 Get existing users
+    const existingUsers = JSON.parse(localStorage.getItem("authData")) || [];
 
-  // 🔹 New user object
-  const newUser = {
-    username: formData.name,
-    email: formData.email,
-    phone: formData.phone,
-    password: formData.password,
+    // 🔹 New user object
+    const newUser = {
+      username: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      password: formData.password,
+    };
+
+    // 🔹 Add new user to array
+    existingUsers.push(newUser);
+
+    // 🔹 Save back to localStorage
+    localStorage.setItem("authData", JSON.stringify(existingUsers));
+
+    toast.success("Registration successful!");
+    navigate("/login");
   };
-
-  // 🔹 Add new user to array
-  existingUsers.push(newUser);
-
-  // 🔹 Save back to localStorage
-  localStorage.setItem("authData", JSON.stringify(existingUsers));
-
-  toast.success("Registration successful!");
-  navigate("/login");
-};
-
-
 
   return (
     <div className="register-page">
-    <div className="form-container">
-      <h1 className="form-title">CREATE ACCOUNT</h1>
-      <form onSubmit={handleSubmit}>
-        {/* Name */}
-        <div className="form-group">
-          <label>Full Name</label>
-          <input
-            name="name"
-            placeholder="Enter your full name"
-            value={formData.name}
-            onChange={handleChange}
-            className={errors.name ? "error-input" : ""}
-          />
-          {errors.name && <span className="error">{errors.name}</span>}
-        </div>
-
-        {/* Email */}
-        <div className="form-group">
-          <label>Email Address</label>
-          <input
-            name="email"
-            placeholder="Enter your email address"
-            value={formData.email}
-            onChange={handleChange}
-            className={errors.email ? "error-input" : ""}
-          />
-          {errors.email && <span className="error">{errors.email}</span>}
-        </div>
-
-        {/* Phone */}
-        <div className="form-group">
-          <label>Phone Number</label>
-          <input
-            name="phone"
-            placeholder="Enter your phone number"
-            value={formData.phone}
-            onChange={handleChange}
-            className={errors.phone ? "error-input" : ""}
-          />
-          {errors.phone && <span className="error">{errors.phone}</span>}
-        </div>
-
-        {/* Password */}
-        <div className="form-group">
-          <label>Password</label>
-          <div style={{ position: "relative" }}>
+      <div className="form-container">
+        <h1 className="form-title">CREATE ACCOUNT</h1>
+        <form onSubmit={handleSubmit}>
+          {/* Name */}
+          <div className="form-group">
+            <label>Full Name</label>
             <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Create a password"
-              value={formData.password}
+              name="name"
+              placeholder="Enter your full name"
+              value={formData.name}
               onChange={handleChange}
-              className={errors.password ? "error-input" : ""}
+              className={errors.name ? "error-input" : ""}
             />
-            <span
-              style={{
-                position: "absolute",
-                right: "10px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                cursor: "pointer",
-              }}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "🙈" : "👁️"}
-            </span>
+            {errors.name && <span className="error">{errors.name}</span>}
           </div>
-          {errors.password && <span className="error">{errors.password}</span>}
-        </div>
 
-        {/* Confirm Password */}
-        <div className="form-group">
-          <label>Confirm Password</label>
-          <div style={{ position: "relative" }}>
+          {/* Email */}
+          <div className="form-group">
+            <label>Email Address</label>
             <input
-              type={showConfirmPassword ? "text" : "password"}
-              name="confirmPassword"
-              placeholder="Confirm your password"
-              value={formData.confirmPassword}
+              name="email"
+              placeholder="Enter your email address"
+              value={formData.email}
               onChange={handleChange}
-              className={errors.confirmPassword ? "error-input" : ""}
+              className={errors.email ? "error-input" : ""}
             />
-            <span
-              style={{
-                position: "absolute",
-                right: "10px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                cursor: "pointer",
-              }}
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            >
-              {showConfirmPassword ? "🙈" : "👁️"}
-            </span>
+            {errors.email && <span className="error">{errors.email}</span>}
           </div>
-          {errors.confirmPassword && (
-            <span className="error">{errors.confirmPassword}</span>
-          )}
-        </div>
 
-        <button type="submit" className="btn-primary">
-          Register
-        </button>
-      </form>
+          {/* Phone */}
+          <div className="form-group">
+            <label>Phone Number</label>
+            <input
+              name="phone"
+              placeholder="Enter your phone number"
+              value={formData.phone}
+              onChange={handleChange}
+              className={errors.phone ? "error-input" : ""}
+            />
+            {errors.phone && <span className="error">{errors.phone}</span>}
+          </div>
 
-      <p className="link-text">
-        Already have an account? <a href="/Login">Login here</a>
-      </p>
-    </div>
+          {/* Password */}
+          <div className="form-group">
+            <label>Password</label>
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Create a password"
+                value={formData.password}
+                onChange={handleChange}
+                className={errors.password ? "error-input" : ""}
+              />
+              <span
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </span>
+            </div>
+            {errors.password && (
+              <span className="error">{errors.password}</span>
+            )}
+          </div>
+
+          {/* Confirm Password */}
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <div style={{ position: "relative" }}>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className={errors.confirmPassword ? "error-input" : ""}
+              />
+              <span
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                }}
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? "🙈" : "👁️"}
+              </span>
+            </div>
+            {errors.confirmPassword && (
+              <span className="error">{errors.confirmPassword}</span>
+            )}
+          </div>
+
+          <button type="submit" className="btn-primary">
+            Register
+          </button>
+        </form>
+
+        <p className="link-text">
+          Already have an account? <a href="/Login">Login here</a>
+        </p>
+      </div>
     </div>
   );
 };
